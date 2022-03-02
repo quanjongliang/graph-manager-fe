@@ -1,0 +1,22 @@
+.left-bar {
+  padding: 20px;
+  width: 12%;
+  background: white;
+  &-container {
+    text-align: start;
+    &-group {
+      > a {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        color: #cbd3ed;
+        > svg {
+          margin-right: 10px;
+        }
+        &.active {
+          color: black;
+        }
+      }
+    }
+  }
+}

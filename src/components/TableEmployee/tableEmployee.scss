@@ -1,0 +1,54 @@
+@mixin option-button() {
+  width: 70px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.table-employee {
+  overflow-y: scroll;
+  .td-action {
+    cursor: pointer;
+  }
+  th {
+    cursor: pointer;
+    width: 20%;
+  }
+  .th-department-option {
+    display: flex;
+    position: relative;
+    &-select {
+      position: absolute;
+      right: 0;
+      > div {
+        color: white;
+        margin-bottom: 10px;
+        background: gray;
+        padding: 10px 5px;
+        border-radius: 10px;
+      }
+    }
+  }
+  .option-employee {
+    > p {
+      margin: 5px 0;
+      color: white;
+      font-weight: 600;
+      @include option-button;
+    }
+    > p:nth-child(1) {
+      background: rgb(0, 138, 252);
+      &:hover {
+        background: rgb(11, 143, 250);
+      }
+    }
+    > p:nth-child(2) {
+      background: #f85d00;
+      &:hover {
+        background: #f76a12;
+      }
+    }
+  }
+  background: white;
+  margin: 10px;
+  height: calc(100vh - 90px);
+}

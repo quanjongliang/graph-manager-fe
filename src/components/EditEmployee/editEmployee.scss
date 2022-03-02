@@ -1,0 +1,42 @@
+.edit-employee {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(128, 128, 128, 0.459);
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s all linear;
+  opacity: 0;
+  z-index: -9999;
+  &.open {
+    transition: 0.3s all linear;
+    opacity: 1;
+    z-index: 9999;
+  }
+  &-container {
+    &-model {
+      padding: 20px;
+      width: 300px;
+      background: rgb(255, 255, 255);
+      &-close {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      &-form {
+        text-align: start;
+        > p {
+          margin: 10px 0;
+        }
+      }
+      &-submit {
+        margin: 10px 0;
+      }
+    }
+  }
+}

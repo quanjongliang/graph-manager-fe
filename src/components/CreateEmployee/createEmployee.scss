@@ -1,0 +1,45 @@
+.create-employee {
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  background: rgba(128, 128, 128, 0.459);
+  transform: translate(50%, -50%);
+  z-index: -9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s all linear;
+  &.open {
+    transition: 0.3s all linear;
+    opacity: 1;
+    z-index: 9999;
+  }
+  &-container {
+    &-modal {
+      text-align: start;
+      background: white;
+      padding: 20px;
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        > svg {
+          cursor: pointer;
+        }
+      }
+      &-form {
+        margin-bottom: 20px;
+        input {
+          margin: 5px 0;
+        }
+      }
+      &-form-date {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

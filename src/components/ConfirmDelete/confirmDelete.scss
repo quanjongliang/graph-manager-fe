@@ -1,0 +1,28 @@
+.confirm-delete {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: rgba(128, 128, 128, 0.5);
+  display: flex;
+  top: 50%;
+  right: 50%;
+  background: rgba(128, 128, 128, 0.459);
+  transform: translate(50%, -50%);
+  justify-content: center;
+  align-items: center;
+  &-container {
+    &-header {
+      text-align: end;
+      > b {
+        cursor: pointer;
+      }
+    }
+    &-button {
+      display: flex;
+      justify-content: space-around;
+    }
+    background: white;
+    padding: 20px;
+  }
+}
