@@ -30,8 +30,6 @@ export const getEmployee = createAsyncThunk(
   "employee/fetchEmployee",
   async () => {
     const { data: employee } = FIND_EMPLOYEES();
-    console.log("employee");
-    console.log(employee);
     return employee.findAllActiveEmployee;
   }
 );

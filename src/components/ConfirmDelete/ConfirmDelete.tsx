@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import React from "react";
 import { DELETE_EMPLOYEE } from "../../api";
 import { useAppDispatch } from "../../app/hooks";
@@ -14,12 +14,20 @@ interface Props {
 
 export const ConfirmDelete = (props: Props) => {
   const { id, handleOpen, index } = props;
+  const toast = useToast();
   const dispatch = useAppDispatch();
   const [removeEmployee] = useMutation(DELETE_EMPLOYEE);
   const submitDeleteEmployee = () => {
     handleOpen();
     dispatch(removeOldEmployee(id));
     removeEmployee({ variables: { id } });
+    toast({
+      title: "Employee deleted.",
+      description: "We've deleted this employee.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
   return (
     <div className="confirm-delete">

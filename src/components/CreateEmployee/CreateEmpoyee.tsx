@@ -1,18 +1,16 @@
+import { useMutation } from "@apollo/client";
+import { Button, Input, Select, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { CREATE_EMPLOYEE, FIND_DEPARTMENT } from "../../api";
+import { useAppDispatch } from "../../app/hooks";
+import { pushNewEmployee } from "../../features";
 import {
   DateKey,
   EmployeeKey,
   UpdateEmployeeWithoutId,
 } from "../../interfaces";
 import "./createEmployee.scss";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { Button, Input } from "@chakra-ui/react";
-import { Select } from "@chakra-ui/react";
-import { CREATE_EMPLOYEE, FIND_DEPARTMENT } from "../../api";
-import { useMutation } from "@apollo/client";
-import { useDispatch } from "react-redux";
-import { useAppDispatch } from "../../app/hooks";
-import { pushNewEmployee } from "../../features";
 interface Props {
   isOpen: boolean;
   handleIsOpen: () => void;
@@ -20,6 +18,7 @@ interface Props {
 
 export const CreateEmployee = (props: Props) => {
   const { isOpen, handleIsOpen } = props;
+  const toast = useToast();
   const [employee, setEmployee] = useState<UpdateEmployeeWithoutId>();
   const [date, setDate] = useState({
     day: "",
@@ -60,18 +59,33 @@ export const CreateEmployee = (props: Props) => {
   const submitCreateEmployee = async () => {
     const { day, month, year } = date;
     const dateOfBirth = new Date(`${month}/${day}/${year}`);
-
-    const { data } = await createEmployee({
-      variables: {
-        firstName: employee?.firstName,
-        lastName: employee?.lastName,
-        departmentName: employee?.departmentName,
-        title: employee?.title,
-        dateOfBirth: dateOfBirth,
-      },
-    });
-    dispatch(pushNewEmployee(data.createEmployee));
-    handleIsOpen();
+    if (!employee?.firstName) {
+      toast({
+        title: "Please enter first name",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      const { data, errors } = await createEmployee({
+        variables: {
+          firstName: employee?.firstName,
+          lastName: employee?.lastName,
+          departmentName: employee?.departmentName,
+          title: employee?.title,
+          dateOfBirth: dateOfBirth,
+        },
+      });
+      dispatch(pushNewEmployee(data.createEmployee));
+      toast({
+        title: "Employee created.",
+        description: "We've created new employee.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      handleIsOpen();
+    }
   };
   return (
     <div className={`create-employee ${isOpen ? "open" : ""}`}>

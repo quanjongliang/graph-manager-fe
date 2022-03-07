@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Button, Input, Select } from "@chakra-ui/react";
+import { Button, Input, Select, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { UPDATE_EMPLOYEE } from "../../api";
@@ -16,6 +16,7 @@ interface Props {
 
 export const EditEmployee = (props: Props) => {
   const { isOpen, employee, handleOpen, department } = props;
+  const toast = useToast();
   const dispatch = useAppDispatch();
   const [employeeUpdate, setEmployeeUpdate] = useState<any>({ ...employee });
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
@@ -40,7 +41,7 @@ export const EditEmployee = (props: Props) => {
     }));
   };
 
-  const submitUpdateEmployee = () => {
+  const submitUpdateEmployee = async () => {
     const res = {
       id: employeeUpdate.id,
       departmentName: employeeUpdate.department.name,
@@ -56,8 +57,15 @@ export const EditEmployee = (props: Props) => {
         },
       })
     );
-    updateEmployee({
+    await updateEmployee({
       variables: res,
+    });
+    toast({
+      title: "Employee edited.",
+      description: "We've edited this employee.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
     });
     handleOpen();
   };
